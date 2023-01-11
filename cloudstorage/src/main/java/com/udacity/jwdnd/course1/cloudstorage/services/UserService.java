@@ -18,21 +18,18 @@ public class UserService {
   @Autowired
   private UserMapper userMapper;
 
-  public boolean isUserNameAvailable(String username) {
-    return Objects.isNull(userMapper.getUser(username));
+  public boolean isUserNameAvailable(@NotNull String username) {
+    return userMapper.getUser(username).isEmpty();
   }
 
-  public User getUser(String username) {
-    return userMapper.getUser(username);
+  public User getUser(@NotNull String username) {
+    return userMapper.getUser(username).orElse(null);
   }
 
   public int createUser(@NotNull User user) {
-    String encodedSalt = createSalt();
-    String hashedPassword = hashService.getHashedValue(user.getPassword(), encodedSalt);
-
-    return userMapper.insertUser(
-        new User(null, user.getUsername(), encodedSalt, hashedPassword, user.getFirstname(),
-            user.getLastname()));
+    user.setSalt(createSalt());
+    user.setPassword(hashService.getHashedValue(user.getPassword(), user.getSalt()));
+    return userMapper.insertUser(user);
   }
 
   private String createSalt() {

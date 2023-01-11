@@ -1,6 +1,5 @@
 package com.udacity.jwdnd.course1.cloudstorage.services;
 
-import com.udacity.jwdnd.course1.cloudstorage.mapper.UserMapper;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -18,14 +17,14 @@ public class AuthenticationService implements AuthenticationProvider {
   private HashService hashService;
 
   @Autowired
-  private UserMapper userMapper;
+  private UserService userService;
 
   @Override
   public Authentication authenticate(Authentication authentication) throws AuthenticationException {
     String username = authentication.getName();
     String password = authentication.getCredentials().toString();
 
-    User user = userMapper.getUser(username);
+    User user = userService.getUser(username);
 
     if (Objects.nonNull(user)) {
       String encodedSalt = user.getSalt();
