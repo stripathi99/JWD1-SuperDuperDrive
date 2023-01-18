@@ -1,6 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
-import com.udacity.jwdnd.course1.cloudstorage.model.File;
+import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
+import com.udacity.jwdnd.course1.cloudstorage.services.EncryptionService;
 import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
 import com.udacity.jwdnd.course1.cloudstorage.services.NoteService;
 import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
@@ -22,11 +23,19 @@ public class HomeController {
   @Autowired
   private NoteService noteService;
 
+  @Autowired
+  private CredentialService credentialService;
+
+  @Autowired
+  private EncryptionService encryptionService;
+
   @GetMapping("/home")
   public String home(Authentication authentication, Model model) {
     int userId = userService.getUser(authentication.getName()).getUserId();
-    model.addAttribute("files", fileService.getAllUserFiles(userId));
     model.addAttribute("notes", noteService.getAllNotes(userId));
+    model.addAttribute("files", fileService.getAllUserFiles(userId));
+    model.addAttribute("credentials", credentialService.getAllUserCredentials(userId));
+    model.addAttribute("encryptionService", encryptionService);
     return "home";
   }
 }

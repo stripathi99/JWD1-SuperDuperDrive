@@ -18,19 +18,15 @@ public class NoteService {
 
   public int addNewNode(Note note, Integer userid) {
     note.setUserid(userid);
-    System.out.println("Note to be added: " + note);
     return noteMapper.insertNote(note);
   }
 
   public List<Note> getAllNotes(Integer userid) {
-    for(Note note: noteMapper.getAllNotesBy(userid)) {
-      System.out.println(note);
-    }
     return noteMapper.getAllNotesBy(userid);
   }
 
-  public void updateNote(Note node) {
-    noteMapper.updateNote(node);
+  public void updateNote(Note note) {
+    noteMapper.updateNote(note);
   }
 
   public Integer deleteNode(Integer noteid) {
