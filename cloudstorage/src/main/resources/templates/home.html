@@ -169,7 +169,8 @@
                     [[${credential.credentialid}]],
                     [[${credential.url}]],
                     [[${credential.username}]],
-                    [[${encryptionService.decryptValue(credential.password, credential.key)}]])">
+                    [[${encryptionService.decryptValue(credential.password, credential.key)}]])"
+                    id="edit-credential-button">
                   Edit
                 </button>
                 <a class="btn btn-danger" th:href="@{/home/credentials/delete(id=${credential.credentialid})}">Delete</a>
