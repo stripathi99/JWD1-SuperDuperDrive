@@ -370,12 +370,15 @@ class CloudStorageApplicationTests {
         .findElements(By.tagName("tr")).size();
 
     webDriverWait.until(visibilityOfElementLocated(By.id("edit-credential-button"))).click();
-    assertTrue(webDriverWait.until(visibilityOfElementLocated(By.id("credentialModal"))).isDisplayed());
+    assertTrue(
+        webDriverWait.until(visibilityOfElementLocated(By.id("credentialModal"))).isDisplayed());
 
     // edit the credential
     var credentialURL = webDriverWait.until(visibilityOfElementLocated(By.id("credential-url")));
-    var credentialUsername = webDriverWait.until(visibilityOfElementLocated(By.id("credential-username")));
-    var credentialPassword = webDriverWait.until(visibilityOfElementLocated(By.id("credential-password")));
+    var credentialUsername = webDriverWait.until(
+        visibilityOfElementLocated(By.id("credential-username")));
+    var credentialPassword = webDriverWait.until(
+        visibilityOfElementLocated(By.id("credential-password")));
 
     credentialURL.clear();
     credentialUsername.clear();
@@ -395,14 +398,38 @@ class CloudStorageApplicationTests {
     navigateToCredentialTab(webDriverWait);
 
     // verify that number of credentials remain the same, as we are only editing the existing note
-    assertEquals(numOfNote, driver.findElement(By.id("credentialTable")).findElement(By.tagName("tbody"))
-        .findElements(By.tagName("tr")).size());
+    assertEquals(numOfNote,
+        driver.findElement(By.id("credentialTable")).findElement(By.tagName("tbody"))
+            .findElements(By.tagName("tr")).size());
 
     Thread.sleep(1000);
   }
 
   @Test
   public void delete_credential() throws InterruptedException {
+    create_credential();
+    WebDriverWait webDriverWait = new WebDriverWait(driver, 5);
+    navigateToCredentialTab(webDriverWait);
+
+    int numOfNote = driver.findElement(By.id("credentialTable")).findElement(By.tagName("tbody"))
+        .findElements(By.tagName("tr")).size();
+
+    // click on the delete credential button
+    webDriverWait.until(visibilityOfElementLocated(By.id("delete-credential"))).click();
+
+    // verify
+    assertTrue(webDriverWait.until(visibilityOfElementLocated(By.id("success"))).isDisplayed());
+
+    // navigate back to home-page -> notes-tab
+    driver.get("http://localhost:" + this.port + "/home");
+    navigateToCredentialTab(webDriverWait);
+
+    // verify there are no notes -> deletion successful
+    assertEquals(numOfNote - 1,
+        driver.findElement(By.id("userTable")).findElement(By.tagName("tbody"))
+            .findElements(By.tagName("tr")).size());
+
+    Thread.sleep(1000);
   }
 
   private void navigateToCredentialTab(WebDriverWait webDriverWait) {
