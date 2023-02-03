@@ -2,11 +2,13 @@
 
 package com.udacity.jwdnd.course1.cloudstorage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.io.File;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -235,15 +237,50 @@ class CloudStorageApplicationTests {
     navigateToNotesTab(webDriverWait);
 
     // verify the existence of newly created note
-    assertTrue(webDriverWait.until(visibilityOfElementLocated(By.id("note-title-row"))).getText()
-        .contains("test-note-title"));
+    assertTrue(webDriverWait.until(visibilityOfElementLocated(By.id("note-title-row"))).getText().contains("test-note-title"));
+    assertTrue(webDriverWait.until(visibilityOfElementLocated(By.id("note-description-row"))).getText().contains("test-note-description"));
 
-    Thread.sleep(3000);
+    Thread.sleep(1000);
   }
 
   @Test
   public void edit_note() throws InterruptedException {
     create_note();
+
+    WebDriverWait webDriverWait = new WebDriverWait(driver, 5);
+
+    int numOfNote = driver.findElement(By.id("userTable")).findElements(By.tagName("tbody")).size();
+
+    webDriverWait.until(visibilityOfElementLocated(By.id("edit-note"))).click();
+    assertTrue(webDriverWait.until(visibilityOfElementLocated(By.id("noteModal"))).isDisplayed());
+
+    // edit the note
+    var noteTitle = webDriverWait.until(visibilityOfElementLocated(By.id("note-title")));
+    var noteDesc = webDriverWait.until(visibilityOfElementLocated(By.id("note-description")));
+
+    noteTitle.clear();
+    noteTitle.sendKeys("edited-test-note-title");
+
+    noteDesc.clear();
+    noteDesc.sendKeys("edited-test-note-description");
+
+    // save the edited note
+    webDriverWait.until(visibilityOfElementLocated(By.id("submit-note"))).click();
+
+    assertTrue(webDriverWait.until(visibilityOfElementLocated(By.id("success"))).isDisplayed());
+
+    // navigate back to home-page -> notes-tab
+    driver.get("http://localhost:" + this.port + "/home");
+    navigateToNotesTab(webDriverWait);
+
+    // verify the existence of newly created note
+    assertTrue(webDriverWait.until(visibilityOfElementLocated(By.id("note-title-row"))).getText().startsWith("edited"));
+    assertTrue(webDriverWait.until(visibilityOfElementLocated(By.id("note-description-row"))).getText().startsWith("edited"));
+
+    // verify that number of notes remain the same, as we are only editing the existing note
+    assertEquals(driver.findElement(By.id("userTable")).findElements(By.tagName("tbody")).size(), numOfNote);
+
+    Thread.sleep(3000);
   }
 
   @Test

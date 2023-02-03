@@ -88,12 +88,13 @@
                 <button
                     type="button"
                     class="btn btn-success"
-                    th:onclick="showNoteModal([[${note.noteid}]], [[${note.notetitle}]], [[${note.notedescription}]])">
+                    th:onclick="showNoteModal([[${note.noteid}]], [[${note.notetitle}]], [[${note.notedescription}]])"
+                    id="edit-note">
                   Edit
                 </button>
                 <a
                     class="btn btn-danger"
-                    th:href="@{/home/notes/delete(id=${note.noteid})}">Delete</a>
+                    th:href="@{/home/notes/delete(id=${note.noteid})}" id="delete-note">Delete</a>
               </td>
               <th scope="row" th:text="${note.notetitle}" id="note-title-row">Note Title</th>
               <td th:text="${note.notedescription}" id="note-description-row">Note Description</td>
