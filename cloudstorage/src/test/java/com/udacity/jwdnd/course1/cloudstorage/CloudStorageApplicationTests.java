@@ -324,15 +324,47 @@ class CloudStorageApplicationTests {
    */
 
   @Test
-  public void create_credential() {
+  public void create_credential() throws InterruptedException {
+    doLogIn("user", "1234");
+    WebDriverWait webDriverWait = new WebDriverWait(driver, 5);
+    navigateToCredentialTab(webDriverWait);
+
+    // open the create-credential dialog box
+    driver.findElement(By.id("add-credential-button")).click();
+    assertTrue(webDriverWait.until(visibilityOfElementLocated(By.id("credentialModal"))).isDisplayed());
+
+    // input new credential details
+    webDriverWait.until(visibilityOfElementLocated(By.id("credential-url"))).sendKeys("http://google.com");
+    webDriverWait.until(visibilityOfElementLocated(By.id("credential-username"))).sendKeys("username_123");
+    webDriverWait.until(visibilityOfElementLocated(By.id("credential-password"))).sendKeys("password@123");
+
+    // save the credential
+    webDriverWait.until(visibilityOfElementLocated(By.id("save-credential-button"))).click();
+
+    assertTrue(webDriverWait.until(visibilityOfElementLocated(By.id("success"))).isDisplayed());
+
+    // navigate back to home-page -> credential-tab
+    driver.get("http://localhost:" + this.port + "/home");
+    navigateToCredentialTab(webDriverWait);
+
+    // verify the existence of newly created note
+    assertEquals("http://google.com", webDriverWait.until(visibilityOfElementLocated(By.id("url-credential"))).getText());
+    assertEquals("username_123", webDriverWait.until(visibilityOfElementLocated(By.id("username-credential"))).getText());
+    //assertEquals("password@123", webDriverWait.until(visibilityOfElementLocated(By.id("password-credential"))).getText());
+
+    Thread.sleep(3000);
   }
 
   @Test
-  public void edit_credential() {
+  public void edit_credential() throws InterruptedException {
   }
 
   @Test
-  public void delete_credential() {
+  public void delete_credential() throws InterruptedException {
   }
 
+  private void navigateToCredentialTab(WebDriverWait webDriverWait) {
+    driver.findElement(By.id("nav-credentials-tab")).click();
+    assertTrue(webDriverWait.until(visibilityOfElementLocated(By.id("nav-credentials"))).isDisplayed());
+  }
 }

@@ -23,7 +23,7 @@ public interface CredentialMapper {
   Credential getCredential(Integer credentialid);
 
   // select - all
-  @Select("SELECT * FROM CREDENTIALS WHERE userid=${userid}")
+  @Select("SELECT * FROM CREDENTIALS WHERE userid=${userid} ORDER BY credentialid DESC")
   List<Credential> getAllCredentials(Integer userid);
 
   // update
