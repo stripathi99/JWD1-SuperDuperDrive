@@ -426,7 +426,7 @@ class CloudStorageApplicationTests {
 
     // verify there are no notes -> deletion successful
     assertEquals(numOfNote - 1,
-        driver.findElement(By.id("userTable")).findElement(By.tagName("tbody"))
+        driver.findElement(By.id("credentialTable")).findElement(By.tagName("tbody"))
             .findElements(By.tagName("tr")).size());
 
     Thread.sleep(1000);
