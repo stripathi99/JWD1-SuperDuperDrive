@@ -66,7 +66,7 @@
       </div>
       <div class="tab-pane fade" id="nav-notes" role="tabpanel" aria-labelledby="nav-notes-tab">
         <button style="margin: 0.25em;" type="button" class="btn btn-info float-right"
-                onclick="showNoteModal()">
+                onclick="showNoteModal()" id="add-note-button">
           + Add a New Note
         </button>
 
@@ -95,8 +95,8 @@
                     class="btn btn-danger"
                     th:href="@{/home/notes/delete(id=${note.noteid})}">Delete</a>
               </td>
-              <th scope="row" th:text="${note.notetitle}">Note Title</th>
-              <td th:text="${note.notedescription}">Note Description</td>
+              <th scope="row" th:text="${note.notetitle}" id="note-title-row">Note Title</th>
+              <td th:text="${note.notedescription}" id="note-description-row">Note Description</td>
             </tr>
             </tbody>
           </table>
@@ -130,7 +130,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="$('#noteSubmit').click();">
+                <button type="button" class="btn btn-primary" onclick="$('#noteSubmit').click();" id="submit-note">
                   Save changes
                 </button>
               </div>
