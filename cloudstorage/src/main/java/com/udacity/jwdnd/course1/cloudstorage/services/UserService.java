@@ -28,6 +28,9 @@ public class UserService {
   public int createUser(@NotNull User user) {
     user.setSalt(createSalt());
     user.setPassword(hashService.getHashedValue(user.getPassword(), user.getSalt()));
+    System.out.println(user.getSalt());
+    System.out.println(user.getUserId());
+    System.out.println(user.getPassword());
     return userMapper.insertUser(user);
   }
 }

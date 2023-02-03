@@ -80,9 +80,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:if="${notes.empty}">
-              <td style="text-align:center;" colspan="3">No notes available.</td>
-            </tr>
+<!--            <tr th:if="${notes.empty}">-->
+<!--              <td style="text-align:center;" colspan="3" id="zero-notes">No notes available.</td>-->
+<!--            </tr>-->
             <tr th:each="note: ${notes}">
               <td>
                 <button

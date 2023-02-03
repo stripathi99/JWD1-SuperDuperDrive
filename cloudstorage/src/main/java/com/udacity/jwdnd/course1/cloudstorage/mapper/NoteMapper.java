@@ -21,7 +21,7 @@ public interface NoteMapper {
   @Select("SELECT * FROM NOTES WHERE noteid=#{noteid}")
   Optional<Note> getNote(Integer noteid);
 
-  @Select("SELECT * FROM NOTES WHERE userid=#{userid}")
+  @Select("SELECT * FROM NOTES WHERE userid=#{userid} ORDER BY noteid DESC")
   List<Note> getAllNotesBy(Integer userid);
 
   @Update("UPDATE NOTES SET notetitle=#{notetitle}, notedescription=#{notedescription}"
