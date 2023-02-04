@@ -393,7 +393,7 @@ class CloudStorageApplicationTests {
 
     assertTrue(webDriverWait.until(visibilityOfElementLocated(By.id("success"))).isDisplayed());
 
-    // navigate back to home-page -> notes-tab
+    // navigate back to home-page -> credential-tab
     driver.get("http://localhost:" + this.port + "/home");
     navigateToCredentialTab(webDriverWait);
 
@@ -420,11 +420,11 @@ class CloudStorageApplicationTests {
     // verify
     assertTrue(webDriverWait.until(visibilityOfElementLocated(By.id("success"))).isDisplayed());
 
-    // navigate back to home-page -> notes-tab
+    // navigate back to home-page -> credential-tab
     driver.get("http://localhost:" + this.port + "/home");
     navigateToCredentialTab(webDriverWait);
 
-    // verify there are no notes -> deletion successful
+    // verify there are no credentials -> deletion successful
     assertEquals(numOfNote - 1,
         driver.findElement(By.id("credentialTable")).findElement(By.tagName("tbody"))
             .findElements(By.tagName("tr")).size());
