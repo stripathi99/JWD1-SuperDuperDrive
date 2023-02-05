@@ -18,8 +18,8 @@ public class FileService {
     return fileMapper.getAllFilesByUser(userId);
   }
 
-  public int uploadNewFile(MultipartFile multipartFile, Integer userId) throws IOException {
-    return fileMapper.insertFile(new File(multipartFile.getName(),
+  public void uploadNewFile(MultipartFile multipartFile, Integer userId) throws IOException {
+    fileMapper.insertFile(new File(multipartFile.getOriginalFilename(),
         multipartFile.getContentType(),
         Long.toString(multipartFile.getSize()),
         userId,
@@ -28,5 +28,9 @@ public class FileService {
 
   public int removeFile(int fileId) {
     return fileMapper.deleteFile(fileId);
+  }
+
+  public File getFile(Integer fileId) {
+    return fileMapper.get(fileId);
   }
 }

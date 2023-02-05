@@ -21,4 +21,7 @@ public interface FileMapper {
 
   @Delete("DELETE FROM FILES WHERE fileId=#{fileId}")
   int deleteFile(int fileId);
+
+  @Select("SELECT * FROM FILES WHERE fileId=#{fileId} ORDER BY fileId DESC")
+  File get(Integer fileId);
 }
