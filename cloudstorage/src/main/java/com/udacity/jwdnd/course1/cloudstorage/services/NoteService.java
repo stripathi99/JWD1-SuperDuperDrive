@@ -16,9 +16,9 @@ public class NoteService {
     return noteMapper.getNote(noteid).isPresent();
   }
 
-  public int addNewNode(Note note, Integer userid) {
+  public void addNewNode(Note note, Integer userid) {
     note.setUserid(userid);
-    return noteMapper.insertNote(note);
+    noteMapper.insertNote(note);
   }
 
   public List<Note> getAllNotes(Integer userid) {

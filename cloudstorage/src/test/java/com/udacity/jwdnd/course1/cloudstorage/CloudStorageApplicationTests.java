@@ -1,5 +1,3 @@
-
-
 package com.udacity.jwdnd.course1.cloudstorage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -203,7 +201,7 @@ class CloudStorageApplicationTests {
   /**
    * This section contains the tests related the Notes section of the app, namely Creating, Editing
    * and Deleting a note. Also present is the utility method to re-direct back to the notes tab
-   * after the successful testing
+   * after the successful testing.
    */
 
   @Test
@@ -321,7 +319,8 @@ class CloudStorageApplicationTests {
 
   /**
    * This section contains the tests related the Credential section of the app, namely Creating,
-   * Editing and Deleting a credential.
+   * Editing and Deleting a credential. Also present is the utility method to re-direct back to the
+   * credentials tab after the successful testing.
    */
 
   @Test

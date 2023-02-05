@@ -11,17 +11,17 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface FileMapper {
 
-  @Select("SELECT * FROM FILES WHERE userid=#{userid} ORDER BY fileId DESC")
-  List<File> getAllFilesByUser(int userid);
-
   @Insert("INSERT INTO FILES (filename, contenttype, filesize, userid, filedata)"
       + " VALUES (#{filename}, #{contenttype}, #{filesize}, #{userid}, #{filedata})")
   @Options(useGeneratedKeys = true, keyProperty = "fileId")
-  int insertFile(File file);
+  void insertFile(File file);
 
-  @Delete("DELETE FROM FILES WHERE fileId=#{fileId}")
-  int deleteFile(int fileId);
+  @Select("SELECT * FROM FILES WHERE userid=#{userid} ORDER BY fileId DESC")
+  List<File> getAllFilesByUser(int userid);
 
   @Select("SELECT * FROM FILES WHERE fileId=#{fileId} ORDER BY fileId DESC")
   File get(Integer fileId);
+
+  @Delete("DELETE FROM FILES WHERE fileId=#{fileId}")
+  int deleteFile(int fileId);
 }
