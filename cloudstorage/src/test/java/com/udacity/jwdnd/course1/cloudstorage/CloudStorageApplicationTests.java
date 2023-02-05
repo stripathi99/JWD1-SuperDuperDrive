@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
-import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import java.io.File;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -175,30 +175,30 @@ class CloudStorageApplicationTests {
    * Read more about file size limits here: https://spring.io/guides/gs/uploading-files/ under the
    * "Tuning File Upload Limits" section.
    */
-//  @Test
-//  public void testLargeUpload() {
-//    // Create a test account
-//    doMockSignUp("Large File", "Test", "LFT", "123");
-//    doLogIn("LFT", "123");
-//
-//    // Try to upload an arbitrary large file
-//    WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
-//    String fileName = "upload5m.zip";
-//
-//    webDriverWait.until(visibilityOfElementLocated(By.id("fileUpload")));
-//    WebElement fileSelectButton = driver.findElement(By.id("fileUpload"));
-//    fileSelectButton.sendKeys(new File(fileName).getAbsolutePath());
-//
-//    WebElement uploadButton = driver.findElement(By.id("uploadButton"));
-//    uploadButton.click();
-//    try {
-//      webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.id("success")));
-//    } catch (org.openqa.selenium.TimeoutException e) {
-//      System.out.println("Large File upload failed");
-//    }
-//    Assertions.assertFalse(driver.getPageSource().contains("HTTP Status 403 – Forbidden"));
-//
-//  }
+  @Test
+  public void testLargeUpload() {
+    // Create a test account
+    doMockSignUp("Large File", "Test", "LFT", "123");
+    doLogIn("LFT", "123");
+
+    // Try to upload an arbitrary large file
+    WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
+    String fileName = "upload5m.zip";
+
+    webDriverWait.until(visibilityOfElementLocated(By.id("fileUpload")));
+    WebElement fileSelectButton = driver.findElement(By.id("fileUpload"));
+    fileSelectButton.sendKeys(new File(fileName).getAbsolutePath());
+
+    WebElement uploadButton = driver.findElement(By.id("uploadButton"));
+    uploadButton.click();
+    try {
+      webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.id("success")));
+    } catch (org.openqa.selenium.TimeoutException e) {
+      System.out.println("Large File upload failed");
+    }
+    Assertions.assertFalse(driver.getPageSource().contains("HTTP Status 403 – Forbidden"));
+
+  }
 
   /**
    * This section contains the tests related the Notes section of the app, namely Creating, Editing
