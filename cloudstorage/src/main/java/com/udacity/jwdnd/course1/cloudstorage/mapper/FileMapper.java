@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface FileMapper {
 
-  @Select("SELECT * FROM FILES WHERE userid=#{userid}")
+  @Select("SELECT * FROM FILES WHERE userid=#{userid} ORDER BY fileId DESC")
   List<File> getAllFilesByUser(int userid);
 
   @Insert("INSERT INTO FILES (filename, contenttype, filesize, userid, filedata)"
